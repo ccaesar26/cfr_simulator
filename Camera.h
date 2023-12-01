@@ -13,4 +13,12 @@ private:
 
 	const float cameraSpeedFactor = 2.5f;
 	const float mouseSensitivity = 0.1f;
+
+	// Perspective properties
+	float zNear;
+	float zFar;
+	float FoVy;
+	int width;
+	int height;
+	bool isPerspective;
 };
