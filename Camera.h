@@ -4,6 +4,7 @@
 class Camera
 {
 public:
+	Camera(const int width, const int height, const glm::vec3& position);
 
 private:
 	const float defaultZNear = 0.1f;
