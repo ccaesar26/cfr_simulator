@@ -31,4 +31,11 @@ private:
 	glm::vec3 right;
 	glm::vec3 up;
 	glm::vec3 worldUp;
+
+	// Euler Angles
+	float yaw;
+	float pitch;
+
+	bool bFirstMouseMove = true;
+	float lastX = 0.f, lastY = 0.f;
 };
