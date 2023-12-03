@@ -1,4 +1,5 @@
 #pragma once
+#include <glm/glm.hpp>
 
 class Camera
 {
@@ -21,4 +22,13 @@ private:
 	int width;
 	int height;
 	bool isPerspective;
+
+
+	glm::vec3 startPosition;
+
+	glm::vec3 position;
+	glm::vec3 forward;
+	glm::vec3 right;
+	glm::vec3 up;
+	glm::vec3 worldUp;
 };
