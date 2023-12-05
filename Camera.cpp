@@ -44,6 +44,39 @@ void Camera::Reshape(int windowWidth, int windowHeight)
     glViewport(0, 0, windowWidth, windowHeight);
 }
 
+void Camera::ProcessMouseMovement(float xOffset, float yOffset, bool constrainPitch)
+{
+	if (bFirstMouseMove)
+	{
+		lastX = width / 2.0f;
+		lastY = height / 2.0f;
+		bFirstMouseMove = false;
+	}
+
+	xOffset *= mouseSensitivity;
+	yOffset *= mouseSensitivity;
+
+	yaw += xOffset;
+	pitch += yOffset;
+
+	// Make sure that when pitch is out of bounds, screen doesn't get flipped
+	if (constrainPitch)
+	{
+		if (pitch > 89.0f)
+		{
+			pitch = 89.0f;
+		}
+
+		if (pitch < -89.0f)
+		{
+			pitch = -89.0f;
+		}
+	}
+
+	// Update Front, Right and Up Vectors using the updated Euler angles
+	UpdateCameraVectors();
+}
+
 void Camera::UpdateCameraVectors()
 {
 	// Calculate the new Front vector

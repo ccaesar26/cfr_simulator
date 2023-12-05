@@ -11,6 +11,7 @@ public:
 	void Reshape(int windowWidth, int windowHeight);
 
 private:
+	void ProcessMouseMovement(float xOffset, float yOffset, bool constrainPitch);
 	void UpdateCameraVectors();
 
 	const float defaultZNear = 0.1f;
