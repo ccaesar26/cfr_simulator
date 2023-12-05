@@ -11,6 +11,8 @@ public:
 	void Reshape(int windowWidth, int windowHeight);
 
 private:
+	void UpdateCameraVectors();
+
 	const float defaultZNear = 0.1f;
 	const float defaultZFar = 500.f;
 	const float defaultYaw = -90.f;

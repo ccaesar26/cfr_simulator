@@ -1,5 +1,7 @@
 #include "Camera.h"
 
+#include <GL/glew.h>
+
 Camera::Camera(const int width, const int height, const glm::vec3& position)
 {
 	startPosition = position;
@@ -40,4 +42,18 @@ void Camera::Reshape(int windowWidth, int windowHeight)
 
     // define the viewport transformation
     glViewport(0, 0, windowWidth, windowHeight);
+}
+
+void Camera::UpdateCameraVectors()
+{
+	// Calculate the new Front vector
+	glm::vec3 front;
+	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
+	front.y = sin(glm::radians(pitch));
+	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+
+	forward = glm::normalize(front);
+	// Also re-calculate the Right and Up vector
+	right = glm::normalize(glm::cross(forward, worldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
+	up = glm::normalize(glm::cross(right, forward));
 }
