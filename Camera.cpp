@@ -32,3 +32,12 @@ void Camera::Reset(const int width, const int height)
 {
 	Set(width, height, startPosition);
 }
+
+void Camera::Reshape(int windowWidth, int windowHeight)
+{
+	this->width = windowWidth;
+	this->height = windowHeight;
+
+    // define the viewport transformation
+    glViewport(0, 0, windowWidth, windowHeight);
+}

@@ -8,6 +8,8 @@ public:
 
 	void Set(const int width, const int height, const glm::vec3& position);
 	void Reset(const int width, const int height);
+	void Reshape(int windowWidth, int windowHeight);
+
 private:
 	const float defaultZNear = 0.1f;
 	const float defaultZFar = 500.f;
