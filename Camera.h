@@ -5,7 +5,9 @@ class Camera
 {
 public:
 	Camera(const int width, const int height, const glm::vec3& position);
+
 	void Set(const int width, const int height, const glm::vec3& position);
+	void Reset(const int width, const int height);
 private:
 	const float defaultZNear = 0.1f;
 	const float defaultZFar = 500.f;
