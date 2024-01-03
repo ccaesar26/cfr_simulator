@@ -29,6 +29,12 @@ struct Vertex
 	float m_Weights[MAX_BONE_INFLUENCE];
 };
 
+struct Texture {
+	unsigned int id;
+	std::string type;
+	std::string path;
+};
+
 class Mesh
 {
 
