@@ -28,6 +28,7 @@ class Model
     // draws the model, and thus all its meshes
     void Draw(Shader& shader);
 
+    unsigned int TextureFromFile(const char* path, const string& directory, bool gamma = false);
 
 private:
     // loads a model with supported ASSIMP extensions from file and stores the resulting meshes in the meshes vector.
