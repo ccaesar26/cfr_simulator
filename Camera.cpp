@@ -1,92 +1,78 @@
 #include "Camera.h"
 
-#include <glew.h>
-
-Camera::Camera(const int width, const int height, const glm::vec3& position)
+glm::mat4 Camera::GetViewMatrix()
 {
-	startPosition = position;
-	Set(width, height, position);
+	return glm::lookAt(Position, Position + Front, Up);
 }
 
-void Camera::Set(const int width, const int height, const glm::vec3& position)
+void Camera::ProcessKeyboard(Camera_Movement direction, float deltaTime)
 {
-    this->isPerspective = true;
-    this->yaw = defaultYaw;
-    this->pitch = defaultPitch;
-
-    this->FoVy = defaultFoV;
-    this->width = width;
-    this->height = height;
-    this->zNear = defaultZNear;
-    this->zFar = defaultZFar;
-
-    this->worldUp = glm::vec3(0, 1, 0);
-    this->position = position;
-
-    lastX = width / 2.0f;
-    lastY = height / 2.0f;
-    bFirstMouseMove = true;
-
-    UpdateCameraVectors();
+	float velocity = MovementSpeed * deltaTime;
+	if (direction == FORWARD)
+		Position += Front * velocity;
+	if (direction == BACKWARD)
+		Position -= Front * velocity;
+	if (direction == LEFT)
+		Position -= Right * velocity;
+	if (direction == RIGHT)
+		Position += Right * velocity;
+	if (direction == UP)
+		Position += Up * velocity;
+	if (direction == DOWN)
+		Position -= Up * velocity;
 }
 
-void Camera::Reset(const int width, const int height)
+void Camera::ProcessMouseMovement(float xoffset, float yoffset, GLboolean constrainPitch)
 {
-	Set(width, height, startPosition);
-}
+	xoffset *= MouseSensitivity;
+	yoffset *= MouseSensitivity;
 
-void Camera::Reshape(int windowWidth, int windowHeight)
-{
-	this->width = windowWidth;
-	this->height = windowHeight;
+	Yaw += xoffset;
+	Pitch += yoffset;
 
-    // define the viewport transformation
-    glViewport(0, 0, windowWidth, windowHeight);
-}
-
-void Camera::ProcessMouseMovement(float xOffset, float yOffset, bool constrainPitch)
-{
-	if (bFirstMouseMove)
-	{
-		lastX = width / 2.0f;
-		lastY = height / 2.0f;
-		bFirstMouseMove = false;
-	}
-
-	xOffset *= mouseSensitivity;
-	yOffset *= mouseSensitivity;
-
-	yaw += xOffset;
-	pitch += yOffset;
-
-	// Make sure that when pitch is out of bounds, screen doesn't get flipped
+	// make sure that when pitch is out of bounds, screen doesn't get flipped
 	if (constrainPitch)
 	{
-		if (pitch > 89.0f)
-		{
-			pitch = 89.0f;
-		}
-
-		if (pitch < -89.0f)
-		{
-			pitch = -89.0f;
-		}
+		if (Pitch > 89.0f)
+			Pitch = 89.0f;
+		if (Pitch < -89.0f)
+			Pitch = -89.0f;
 	}
 
-	// Update Front, Right and Up Vectors using the updated Euler angles
-	UpdateCameraVectors();
+	// update Front, Right and Up Vectors using the updated Euler angles
+	updateCameraVectors();
 }
 
-void Camera::UpdateCameraVectors()
+void Camera::ProcessMouseScroll(float yoffset)
 {
-	// Calculate the new Front vector
-	glm::vec3 front;
-	front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-	front.y = sin(glm::radians(pitch));
-	front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
+	Zoom -= (float)yoffset;
+	if (Zoom < 1.0f)
+		Zoom = 1.0f;
+	if (Zoom > 70.0f)
+		Zoom = 70.0f;
+}
 
-	forward = glm::normalize(front);
-	// Also re-calculate the Right and Up vector
-	right = glm::normalize(glm::cross(forward, worldUp));  // Normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
-	up = glm::normalize(glm::cross(right, forward));
+void Camera::setViewMatrix(glm::vec3 pos)
+{
+	Position = pos;
+}
+
+void Camera::printPosition()
+{
+	if (Position != prevPos)
+		std::cout << glm::to_string(Position) << "\n";
+	prevPos = Position;
+}
+
+void Camera::updateCameraVectors()
+{
+	// calculate the new Front vector
+	glm::vec3 front;
+	front.x = cos(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+	front.y = sin(glm::radians(Pitch));
+	front.z = sin(glm::radians(Yaw)) * cos(glm::radians(Pitch));
+	Front = glm::normalize(front);
+	// also re-calculate the Right and Up vector
+	Right = glm::normalize(glm::cross(Front, WorldUp));  // normalize the vectors, because their length gets closer to 0 the more you look up or down which results in slower movement.
+	Up = glm::normalize(glm::cross(Right, Front));
 }
