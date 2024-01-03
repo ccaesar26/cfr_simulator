@@ -131,12 +131,16 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="cfr_simulator.cpp" />
     <ClCompile Include="ECameraMovement.cpp" />
+    <ClCompile Include="Mesh.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="default.fs" />
+    <None Include="default.vs" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="Mesh.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
