@@ -163,6 +163,7 @@
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="cfr_simulator.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Model.cpp" />
     <ClCompile Include="Packages\glad\src\glad.c" />
     <ClCompile Include="Shader.cpp" />
   </ItemGroup>
