@@ -55,5 +55,8 @@
     <None Include="PhongLight.fs">
       <Filter>Resource Files</Filter>
     </None>
+    <None Include="PhongLight.vs" />
+    <None Include="skybox.fs" />
+    <None Include="skybox.vs" />
   </ItemGroup>
 </Project>
