@@ -37,6 +37,7 @@ private:
     // processes a node in a recursive fashion. Processes each individual mesh located at the node and repeats this process on its children nodes (if any).
     void processNode(aiNode* node, const aiScene* scene);
 
+    Mesh processMesh(aiMesh* mesh, const aiScene* scene);
 };
 
 #endif
