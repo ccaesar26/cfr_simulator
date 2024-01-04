@@ -33,6 +33,8 @@
 class Shader
 {
 public:
+	Shader(const char* vertexPath, const char* fragmentPath);
+	~Shader();
 
 	void use() const;
 	unsigned int GetID() const;
