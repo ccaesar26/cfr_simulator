@@ -33,8 +33,15 @@
 class Shader
 {
 public:
+
 	void use() const;
 	unsigned int GetID() const;
+
+	void setInt(const std::string& name, int value) const;
+	void setFloat(const std::string& name, float value) const;
+	void setVec3(const std::string& name, const glm::vec3& value) const;
+	void setVec3(const std::string& name, float x, float y, float z) const;
+	void setMat4(const std::string& name, const glm::mat4& mat) const;
 
 private:
 	void Init(const char* vertexPath, const char* fragmentPath);
@@ -42,6 +49,10 @@ private:
 
 public:
 	unsigned int ID;
+
+	unsigned int loc_model_matrix;
+	unsigned int loc_view_matrix;
+	unsigned int loc_projection_matrix;
 };
 
 #endif
