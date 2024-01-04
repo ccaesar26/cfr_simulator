@@ -177,6 +177,8 @@
     <None Include="default.vs" />
     <None Include="PhongLight.fs" />
     <None Include="PhongLight.vs" />
+    <None Include="ShadowMappingDepth.fs" />
+    <None Include="ShadowMappingDepth.vs" />
     <None Include="skybox.fs" />
     <None Include="skybox.vs" />
   </ItemGroup>
