@@ -1,5 +1,15 @@
 #include "Shader.h"
 
+void Shader::use() const
+{
+	glUseProgram(ID);
+}
+
+unsigned Shader::GetID() const
+{
+	return ID;
+}
+
 void Shader::Init(const char* vertexPath, const char* fragmentPath)
 {
 	// 1. retrieve the vertex/fragment source code from filePath

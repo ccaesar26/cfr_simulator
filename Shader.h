@@ -32,6 +32,10 @@
 
 class Shader
 {
+public:
+	void use() const;
+	unsigned int GetID() const;
+
 private:
 	void Init(const char* vertexPath, const char* fragmentPath);
 	void CheckCompileErrors(unsigned shaderStencilTesting, std::string type);
