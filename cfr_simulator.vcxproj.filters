@@ -33,6 +33,9 @@
     <ClCompile Include="Model.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Main.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h">
@@ -58,11 +61,6 @@
     <None Include="PhongLight.fs">
       <Filter>Resource Files</Filter>
     </None>
-    <None Include="PhongLight.vs" />
-    <None Include="skybox.fs" />
-    <None Include="skybox.vs" />
-    <None Include="ShadowMappingDepth.fs" />
-    <None Include="ShadowMappingDepth.vs" />
     <None Include="Lamp.vs">
       <Filter>Resource Files</Filter>
     </None>
@@ -73,6 +71,21 @@
       <Filter>Resource Files</Filter>
     </None>
     <None Include="ShadowMapping.vs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="PhongLight.vs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ShadowMappingDepth.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="ShadowMappingDepth.vs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="skybox.fs">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="skybox.vs">
       <Filter>Resource Files</Filter>
     </None>
   </ItemGroup>
