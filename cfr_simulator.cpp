@@ -350,6 +350,11 @@ int main()
 		terrainShader.setMat4("view", view);
 		bucurestiMapShader.setMat4("projection", projection);
 		bucurestiMapShader.setMat4("view", view);
+
+
+
+		// draw skybox as last
+		glDepthFunc(GL_LEQUAL);
 	}
 
 	return 0;
