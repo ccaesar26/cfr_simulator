@@ -47,7 +47,6 @@ enum LightAction
 
 int main()
 {
-
 	std::cout << "<ENTER> Start the train movement\n"
 		"<BACKSPACE> Stop the train movement\n"
 		"<BACKSLASH> Move train back\n"
@@ -59,6 +58,7 @@ int main()
 		"<+> Increase train speed\n"
 		"<-> Decrease train speed\n";
 
+
 	// glfw: initialize and configure
 	// ------------------------------
 	glfwInit();
@@ -66,7 +66,7 @@ int main()
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-#ifdef __APPLE_
+#ifdef __APPLE__
 	glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 #endif
 
@@ -163,7 +163,7 @@ int main()
 	Shader ploiestiMapShader("model.vs", "model.fs");
 	Shader bucegiShader("model.vs", "model.fs");
 	Shader brasovShader("model.vs", "model.fs");
-
+	
 	Shader lightingShader("PhongLight.vs", "PhongLight.fs");
 	Shader lightCubeShader("Lamp.vs", "Lamp.fs");
 
@@ -198,20 +198,18 @@ int main()
 	constexpr constexpr unsigned int SHADOW_WIDTH = 2048, SHADOW_HEIGHT = 2048;
 	unsigned int depthMapFBO;
 	glGenFramebuffers(1, &depthMapFBO);
-
 	// create depth texture
 	unsigned int depthMap;
 	glGenTextures(1, &depthMap);
 	glBindTexture(GL_TEXTURE_2D, depthMap);
 	glTexImage2D(GL_TEXTURE_2D, 0, GL_DEPTH_COMPONENT, SHADOW_WIDTH, SHADOW_HEIGHT, 0, GL_DEPTH_COMPONENT, GL_FLOAT,
-		nullptr);
+	             nullptr);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-	float borderColor[] = { 1.0, 1.0, 1.0, 1.0 };
+	float borderColor[] = {1.0, 1.0, 1.0, 1.0};
 	glTexParameterfv(GL_TEXTURE_2D, GL_TEXTURE_BORDER_COLOR, borderColor);
-
 	// attach depth texture as FBO's depth buffer
 	glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
 	glFramebufferTexture2D(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_TEXTURE_2D, depthMap, 0);
@@ -249,7 +247,6 @@ int main()
 	skyboxShader.use();
 	skyboxShader.setInt("skybox", 0);
 
-	// declarations
 	float startX = -265.0f;
 	float startY = -16.0f;
 	float startZ = 250.0f;
@@ -312,8 +309,8 @@ int main()
 
 		// view/projection transformations
 		glm::mat4 projection = glm::perspective(glm::radians(camera.Zoom),
-			static_cast<float>(SCR_WIDTH) / static_cast<float>(SCR_HEIGHT), 0.1f,
-			3000.0f);
+		                                        static_cast<float>(SCR_WIDTH) / static_cast<float>(SCR_HEIGHT), 0.1f,
+		                                        3000.0f);
 		glm::mat4 view = camera.GetViewMatrix();
 		lightingShader.setMat4("projection", projection);
 		lightingShader.setMat4("view", view);
@@ -367,7 +364,7 @@ int main()
 			train = translate(train, moveTrain(startX, startY, startZ, rotY, rotZ));
 		}
 
-		train = scale(train, glm::vec3(0.3f, 0.3f, 0.3f));
+		train = scale(train, glm::vec3(0.3f, 0.3f, 0.3f));						   
 		train = glm::rotate(train, glm::radians(rotY), glm::vec3(0, 1, 0));
 		train = glm::rotate(train, glm::radians(0.0f + rotZ), glm::vec3(0, 0, 1));
 		trainShader.setMat4("model", train);
@@ -433,7 +430,7 @@ int main()
 		}
 		if (glfwGetKey(window, GLFW_KEY_BACKSLASH) == GLFW_PRESS) // move train back
 		{
-			train = glm::translate(moveTrainBack(startX, startY, startZ, rotY, rotZ));
+			train = glm::translate(moveTrainBack(startX, startY, startZ, rotY, rotZ));			
 		}
 		if (glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS) // start train
 		{
@@ -454,18 +451,16 @@ int main()
 		case CameraType::Driver:
 			camera.setViewMatrix(glm::vec3(startX, startY + 2, startZ - 9.5));
 			break;
-		default:;
+		default: ;
 		}
 
 		// draw skybox as last
 		glDepthFunc(GL_LEQUAL);
-
 		// change depth function so depth test passes when values are equal to depth buffer's content
 		skyboxShader.use();
 		view = glm::mat4(glm::mat3(camera.GetViewMatrix())); // remove translation from the view matrix
 		skyboxShader.setMat4("view", view);
 		skyboxShader.setMat4("projection", projection);
-
 		// skybox cube
 		glBindVertexArray(skyboxVAO);
 		//glActiveTexture(GL_TEXTURE0);
@@ -480,7 +475,7 @@ int main()
 		glfwPollEvents();
 	}
 
-	// de-allocate all resources once they've outlived their purpose:
+	// optional: de-allocate all resources once they've outlived their purpose:
 	// ------------------------------------------------------------------------
 	glDeleteVertexArrays(1, &skyboxVAO);
 	glDeleteBuffers(1, &skyboxVBO);
@@ -531,7 +526,6 @@ void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 	glViewport(0, 0, width, height);
 }
 
-
 // glfw: whenever the mouse moves, this callback is called
 // -------------------------------------------------------
 void mouse_callback(GLFWwindow* window, double xpos, double ypos)
@@ -552,14 +546,12 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
 	camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
-
 // glfw: whenever the mouse scroll wheel scrolls, this callback is called
 // ----------------------------------------------------------------------
 void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
 {
 	camera.ProcessMouseScroll(yoffset);
 }
-
 
 // utility function for loading a 2D texture from file
 // ---------------------------------------------------
@@ -623,7 +615,7 @@ unsigned int loadCubemap(std::vector<std::string> faces)
 		if (data)
 		{
 			glTexImage2D(GL_TEXTURE_CUBE_MAP_POSITIVE_X + i, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE,
-				data);
+			             data);
 			stbi_image_free(data);
 		}
 		else

@@ -1,5 +1,7 @@
 #include "Model.h"
 
+//#include <soil.h>
+
 Model::Model(string const& path, bool gamma) : gammaCorrection(gamma)
 {
 	loadModel(path);
@@ -7,51 +9,77 @@ Model::Model(string const& path, bool gamma) : gammaCorrection(gamma)
 
 void Model::Draw(Shader& shader)
 {
-    for (unsigned int i = 0; i < meshes.size(); i++)
-        meshes[i].Draw(shader);
+	for (unsigned int i = 0; i < meshes.size(); i++)
+		meshes[i].Draw(shader);
 }
 
-unsigned int Model::TextureFromFile(const char* path, const string& directory, bool gamma)
-{
-    string filename = string(path);
-    filename = directory + '/' + filename;
+unsigned int Model::TextureFromFile(const char* path, const std::string& directory, bool gamma) {
+    std::string filename = directory + "/" + path;
+
+    int width, height, channels;
+    unsigned char* data = stbi_load(filename.c_str(), &width, &height, &channels, STBI_rgb_alpha);
+
+    if (!data) {
+        std::cerr << "Failed to load texture: " << path << std::endl;
+        return 0;
+    }
 
     unsigned int textureID;
     glGenTextures(1, &textureID);
+    glBindTexture(GL_TEXTURE_2D, textureID);
+    glTexImage2D(GL_TEXTURE_2D, 0, gamma ? GL_SRGB_ALPHA : GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
 
-    //std::cout << filename << "\n";
+    // Set texture parameters (if needed)
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
-    int width, height, nrComponents;
-    unsigned char* data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
-    if (data)
-    {
-        GLenum format;
-        if (nrComponents == 1)
-            format = GL_RED;
-        else if (nrComponents == 3)
-            format = GL_RGB;
-        else if (nrComponents == 4)
-            format = GL_RGBA;
-
-        glBindTexture(GL_TEXTURE_2D, textureID);
-        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
-        glGenerateMipmap(GL_TEXTURE_2D);
-
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-        stbi_image_free(data);
-    }
-    else
-    {
-        std::cout << "Texture failed to load at path: " << path << std::endl;
-        stbi_image_free(data);
-    }
+    // Free STB image data
+    stbi_image_free(data);
 
     return textureID;
 }
+
+//unsigned int Model::TextureFromFile(const char* path, const string& directory, bool gamma)
+//{
+//    string filename = string(path);
+//    filename = directory + '/' + filename;
+//
+//    unsigned int textureID;
+//    glGenTextures(1, &textureID);
+//
+//    int width, height, nrComponents;
+//    unsigned char* data = stbi_load(filename.c_str(), &width, &height, &nrComponents, 0);
+//    if (data)
+//    {
+//        GLenum format;
+//        if (nrComponents == 1)
+//            format = GL_RED;
+//        else if (nrComponents == 3)
+//            format = GL_RGB;
+//        else if (nrComponents == 4)
+//            format = GL_RGBA;
+//
+//        glBindTexture(GL_TEXTURE_2D, textureID);
+//        glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
+//        glGenerateMipmap(GL_TEXTURE_2D);
+//
+//        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+//        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+//        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR_MIPMAP_LINEAR);
+//        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+//
+//        stbi_image_free(data);
+//    }
+//    else
+//    {
+//        std::cout << "Texture failed to load at path: " << path << std::endl;
+//        stbi_image_free(data);
+//    }
+//
+//    return textureID;
+//}
 
 void Model::loadModel(string const& path)
 {
@@ -138,7 +166,6 @@ Mesh Model::processMesh(aiMesh* mesh, const aiScene* scene)
 
         vertices.push_back(vertex);
     }
-
     // now wak through each of the mesh's faces (a face is a mesh its triangle) and retrieve the corresponding vertex indices.
     for (unsigned int i = 0; i < mesh->mNumFaces; i++)
     {

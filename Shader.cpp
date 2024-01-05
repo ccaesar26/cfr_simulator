@@ -1,15 +1,5 @@
 #include "Shader.h"
 
-Shader::Shader(const char* vertexPath, const char* fragmentPath)
-{
-	Init(vertexPath, fragmentPath);
-}
-
-Shader::~Shader()
-{
-	glDeleteProgram(ID);
-}
-
 void Shader::use() const
 {
 	glUseProgram(ID);
@@ -104,21 +94,18 @@ void Shader::CheckCompileErrors(unsigned shaderStencilTesting, std::string type)
 {
 	GLint success;
 	GLchar infoLog[1024];
-	if (type != "PROGRAM") 
-	{
+	if (type != "PROGRAM") {
 		glGetShaderiv(shaderStencilTesting, GL_COMPILE_STATUS, &success);
-		if (!success) 
-		{
+		if (!success) {
 			glGetShaderInfoLog(shaderStencilTesting, 1024, NULL, infoLog);
-			std::cerr << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+			std::cout << "ERROR::SHADER_COMPILATION_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
 		}
 	}
 	else {
 		glGetProgramiv(shaderStencilTesting, GL_LINK_STATUS, &success);
-		if (!success) 
-		{
+		if (!success) {
 			glGetProgramInfoLog(shaderStencilTesting, 1024, NULL, infoLog);
-			std::cerr << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
+			std::cout << "ERROR::PROGRAM_LINKING_ERROR of type: " << type << "\n" << infoLog << "\n -- --------------------------------------------------- -- " << std::endl;
 		}
 	}
 }

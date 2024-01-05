@@ -33,28 +33,45 @@
 class Shader
 {
 public:
-	Shader(const char* vertexPath, const char* fragmentPath);
-	~Shader();
+	Shader(const char* vertexPath, const char* fragmentPath)
+	{
+		Init(vertexPath, fragmentPath);
+	}
 
+	~Shader()
+	{
+		glDeleteProgram(ID);
+	}
+
+	// activate the shaderStencilTesting
+	// ------------------------------------------------------------------------
 	void use() const;
+
 	unsigned int GetID() const;
 
+	// MVP
+	unsigned int loc_model_matrix;
+	unsigned int loc_view_matrix;
+	unsigned int loc_projection_matrix;
+
+	unsigned int ID;
+
+	// utility uniform functions
 	void setInt(const std::string& name, int value) const;
+
 	void setFloat(const std::string& name, float value) const;
+
 	void setVec3(const std::string& name, const glm::vec3& value) const;
+
 	void setVec3(const std::string& name, float x, float y, float z) const;
+
 	void setMat4(const std::string& name, const glm::mat4& mat) const;
 
 private:
 	void Init(const char* vertexPath, const char* fragmentPath);
-	void CheckCompileErrors(unsigned shaderStencilTesting, std::string type);
 
-public:
-	unsigned int ID;
-
-	unsigned int loc_model_matrix;
-	unsigned int loc_view_matrix;
-	unsigned int loc_projection_matrix;
+	// utility function for checking shaderStencilTesting compilation/linking errors.
+	// ------------------------------------------------------------------------
+	void CheckCompileErrors(unsigned int shaderStencilTesting, std::string type);
 };
-
 #endif

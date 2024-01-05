@@ -77,8 +77,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>Packages\freeglut-MSVC-3.0.0-2.mp\freeglut\include\GL;Packages\glad\include;Packages\glm-stable\glm;Packages\glfw-3.3.4.bin.WIN32\include\GLFW;Packages\glew-2.1.0-win32\glew-2.1.0\include\GL;Packages\stb-master;Packages\assimp\include;Packages\irrklang\include;$(IncludePath)</IncludePath>
-    <LibraryPath>Packages\freeglut-MSVC-3.0.0-2.mp\freeglut\lib;Packages\glew-2.1.0-win32\glew-2.1.0\lib\Release\Win32;Packages\glfw-3.3.4.bin.WIN32\lib-vc2019;Packages\irrklang\lib\Win32-visualStudio;Packages\assimp\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>Packages\freeglut-MSVC-3.0.0-2.mp\freeglut\include\GL;Packages\glad\include;Packages\glm-stable\glm;Packages\glfw-3.3.4.bin.WIN32\include\GLFW;Packages\glew-2.1.0-win32\glew-2.1.0\include\GL;Packages\stb-master;Packages\assimp\include;$(IncludePath)</IncludePath>
+    <LibraryPath>Packages\freeglut-MSVC-3.0.0-2.mp\freeglut\lib;Packages\glew-2.1.0-win32\glew-2.1.0\lib\Release\Win32;Packages\glfw-3.3.4.bin.WIN32\lib-vc2019;Packages\assimp\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
@@ -160,8 +160,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="cfr_simulator.cpp" />
+    <ClCompile Include="Camera.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="Model.cpp" />
     <ClCompile Include="Packages\glad\src\glad.c" />
@@ -190,6 +190,5 @@
     <None Include="skybox.vs" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets">
-  </ImportGroup>
+  <ImportGroup Label="ExtensionTargets" />
 </Project>
