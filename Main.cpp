@@ -281,6 +281,15 @@ int main()
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), static_cast<void*>(nullptr));
 	glEnableVertexAttribArray(0);
 
+	//lights
+	LightAction light_action = Sunrise;
+	float ambient_intensity = 0.7f;
+	float diffuse = 0.2f;
+	bool day = true;
+
+	//shadows
+	glGenFramebuffers(1, &depthMapFBO);
+
 	return 0;
 }
 
