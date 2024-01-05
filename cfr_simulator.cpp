@@ -444,7 +444,18 @@ int main()
 			start = false;
 		}
 
-
+		switch (cameraType)
+		{
+		case CameraType::Free:
+			break;
+		case CameraType::ThirdPerson:
+			camera.setViewMatrix(glm::vec3(startX - 15, startY + 50, startZ + 100));
+			break;
+		case CameraType::Driver:
+			camera.setViewMatrix(glm::vec3(startX, startY + 2, startZ - 9.5));
+			break;
+		default:;
+		}
 
 		// draw skybox as last
 		glDepthFunc(GL_LEQUAL);
