@@ -395,6 +395,14 @@ int main()
 		ploiestiMapShader.setMat4("model", _ploiesti);
 		ploiesti.Draw(ploiestiMapShader);
 
+		// bucegi
+		_bucegi = translate(_bucegi, glm::vec3(250.0f, 40.0f, -850.0f));
+		_bucegi = scale(_bucegi, glm::vec3(0.15f, 0.15f, 0.15f));
+		_bucegi = glm::rotate(_bucegi, glm::radians(265.0f), glm::vec3(0, 1, 0));
+		bucegiShader.setMat4("model", _bucegi);
+		bucegi.Draw(bucegiShader);
+
+
 
 		// draw skybox as last
 		glDepthFunc(GL_LEQUAL);
