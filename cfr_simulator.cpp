@@ -373,6 +373,15 @@ int main()
 		trainShader.setMat4("model", train);
 		driverWagon.Draw(trainShader);
 
+		// terrain
+
+		_terrain = translate(_terrain, glm::vec3(650.0f, -38.0f, -750.0f));
+		_terrain = scale(_terrain, glm::vec3(2500.0f, 2500.0f, 2500.0f));
+		terrainShader.setMat4("model", _terrain);
+		terrain.Draw(terrainShader);
+
+
+
 		// draw skybox as last
 		glDepthFunc(GL_LEQUAL);
 
