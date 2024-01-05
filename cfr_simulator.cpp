@@ -361,6 +361,14 @@ int main()
 		view = glm::mat4(glm::mat3(camera.GetViewMatrix())); // remove translation from the view matrix
 		skyboxShader.setMat4("view", view);
 		skyboxShader.setMat4("projection", projection);
+
+		// skybox cube
+		glBindVertexArray(skyboxVAO);
+		//glActiveTexture(GL_TEXTURE0);
+		glBindTexture(GL_TEXTURE_CUBE_MAP, cubemapTexture);
+		glDrawArrays(GL_TRIANGLES, 0, 36);
+		glBindVertexArray(0);
+		glDepthFunc(GL_LESS); // set depth function back to default
 	}
 
 	return 0;
