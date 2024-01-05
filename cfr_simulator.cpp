@@ -355,6 +355,12 @@ int main()
 
 		// draw skybox as last
 		glDepthFunc(GL_LEQUAL);
+
+		// change depth function so depth test passes when values are equal to depth buffer's content
+		skyboxShader.use();
+		view = glm::mat4(glm::mat3(camera.GetViewMatrix())); // remove translation from the view matrix
+		skyboxShader.setMat4("view", view);
+		skyboxShader.setMat4("projection", projection);
 	}
 
 	return 0;
