@@ -59,6 +59,9 @@ int main()
 		"<+> Increase train speed\n"
 		"<-> Decrease train speed\n";
 
+	// glfw: initialize and configure
+	// ------------------------------
+	glfwInit();
 
 	return 0;
 }
