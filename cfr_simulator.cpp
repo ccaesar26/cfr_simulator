@@ -380,6 +380,13 @@ int main()
 		terrainShader.setMat4("model", _terrain);
 		terrain.Draw(terrainShader);
 
+		// bucuresti
+		_bucuresti = translate(_bucuresti, glm::vec3(-289.2f, -16.0f, 250.0f));
+		_bucuresti = scale(_bucuresti, glm::vec3(0.45f, 0.45f, 0.45f));
+		_bucuresti = glm::rotate(_bucuresti, glm::radians(313.1f), glm::vec3(0, 1, 0));
+		bucurestiMapShader.setMat4("model", _bucuresti);
+		bucuresti.Draw(bucurestiMapShader);
+
 
 
 		// draw skybox as last
