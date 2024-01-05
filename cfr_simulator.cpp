@@ -402,6 +402,14 @@ int main()
 		bucegiShader.setMat4("model", _bucegi);
 		bucegi.Draw(bucegiShader);
 
+		// brasov
+		_brasov = translate(_brasov, glm::vec3(-90.0f, 25.0f, -1840.0f));
+		_brasov = scale(_brasov, glm::vec3(0.45f, 0.45f, 0.45f));
+		_brasov = glm::rotate(_brasov, glm::radians(14.0f), glm::vec3(0, 1, 0));
+		_brasov = glm::rotate(_brasov, glm::radians(-1.5f), glm::vec3(1, 0, 0));
+		_brasov = glm::rotate(_brasov, glm::radians(-5.0f), glm::vec3(0, 0, 1));
+		brasovShader.setMat4("model", _brasov);
+		brasov.Draw(brasovShader);
 
 
 		// draw skybox as last
