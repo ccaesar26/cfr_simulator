@@ -44,3 +44,21 @@ enum LightAction
 	Sunrise,
 	Sunset
 };
+
+int main()
+{
+
+	std::cout << "<ENTER> Start the train movement\n"
+		"<BACKSPACE> Stop the train movement\n"
+		"<BACKSLASH> Move train back\n"
+		"<1> Driver Camera\n"
+		"<2> Outside Camera\n"
+		"<3> Free Camera\n"
+		"<4> Day Mode\n"
+		"<5> Night Mode\n"
+		"<+> Increase train speed\n"
+		"<-> Decrease train speed\n";
+
+
+	return 0;
+}
