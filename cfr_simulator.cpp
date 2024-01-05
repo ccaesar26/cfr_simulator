@@ -351,6 +351,14 @@ int main()
 		bucurestiMapShader.setMat4("projection", projection);
 		bucurestiMapShader.setMat4("view", view);
 
+		// render the loaded model
+		auto train = glm::mat4(1.0f);
+		auto _terrain = glm::mat4(1.0f);
+		auto _bucuresti = glm::mat4(1.0f);
+		auto _ploiesti = glm::mat4(1.0f);
+		auto _bucegi = glm::mat4(1.0f);
+		auto _brasov = glm::mat4(1.0f);
+
 
 
 		// draw skybox as last
