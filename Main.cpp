@@ -249,6 +249,38 @@ int main()
 	skyboxShader.use();
 	skyboxShader.setInt("skybox", 0);
 
+	// declarations
+	float startX = -265.0f;
+	float startY = -16.0f;
+	float startZ = 250.0f;
+
+	float moveX = -10.0f;
+	float moveY = 0.0f;
+	float moveZ = 0.0f;
+
+	float degreesY = 0.0f;
+	float degreesZ = 0.0f;
+
+	bool start = false;
+
+
+	enum class CameraType
+	{
+		Free,
+		ThirdPerson,
+		Driver
+	};
+
+	CameraType cameraType = CameraType::Free;
+
+	unsigned int lightCubeVAO;
+	glGenVertexArrays(1, &lightCubeVAO);
+	glBindVertexArray(lightCubeVAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, skyboxVBO);
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), static_cast<void*>(nullptr));
+	glEnableVertexAttribArray(0);
+
 	return 0;
 }
 
