@@ -359,7 +359,19 @@ int main()
 		auto _bucegi = glm::mat4(1.0f);
 		auto _brasov = glm::mat4(1.0f);
 
+		// train
+		if (!start)
+			train = translate(train, glm::vec3(startX, startY, startZ));
+		else
+		{
+			train = translate(train, moveTrain(startX, startY, startZ, rotY, rotZ));
+		}
 
+		train = scale(train, glm::vec3(0.3f, 0.3f, 0.3f));
+		train = glm::rotate(train, glm::radians(rotY), glm::vec3(0, 1, 0));
+		train = glm::rotate(train, glm::radians(0.0f + rotZ), glm::vec3(0, 0, 1));
+		trainShader.setMat4("model", train);
+		driverWagon.Draw(trainShader);
 
 		// draw skybox as last
 		glDepthFunc(GL_LEQUAL);
