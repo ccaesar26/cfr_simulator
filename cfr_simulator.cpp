@@ -290,6 +290,17 @@ int main()
 	//shadows
 	glGenFramebuffers(1, &depthMapFBO);
 
+	// render loop
+	// -----------
+	while (!glfwWindowShouldClose(window))
+	{
+		// per-frame time logic
+		// --------------------
+		float currentFrame = glfwGetTime();
+		deltaTime = currentFrame - lastFrame;
+		lastFrame = currentFrame;
+	}
+
 	return 0;
 }
 
