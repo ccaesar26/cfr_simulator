@@ -333,6 +333,23 @@ int main()
 
 		glBindVertexArray(lightCubeVAO);
 		glDrawArrays(GL_TRIANGLES, 0, 36);
+
+		// render
+		// ------
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+		// draw scene as normal
+		bucurestiMapShader.use();
+		trainShader.use();
+		terrainShader.use();
+
+		trainShader.setMat4("projection", projection);
+		trainShader.setMat4("view", view);
+		terrainShader.setMat4("projection", projection);
+		terrainShader.setMat4("view", view);
+		bucurestiMapShader.setMat4("projection", projection);
+		bucurestiMapShader.setMat4("view", view);
 	}
 
 	return 0;
