@@ -387,6 +387,13 @@ int main()
 		bucurestiMapShader.setMat4("model", _bucuresti);
 		bucuresti.Draw(bucurestiMapShader);
 
+		// ploiesti
+		_ploiesti = translate(_ploiesti, glm::vec3(347.75f, 12.0f, -450.0f));
+		_ploiesti = scale(_ploiesti, glm::vec3(0.45f, 0.45f, 0.45f));
+		_ploiesti = glm::rotate(_ploiesti, glm::radians(288.0f), glm::vec3(0, 1, 0));
+		_ploiesti = glm::rotate(_ploiesti, glm::radians(2.5f), glm::vec3(1, 0, 0));
+		ploiestiMapShader.setMat4("model", _ploiesti);
+		ploiesti.Draw(ploiestiMapShader);
 
 
 		// draw skybox as last
