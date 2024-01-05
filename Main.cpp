@@ -179,8 +179,25 @@ int main()
 	glBufferData(GL_ARRAY_BUFFER, sizeof(skyboxVertices), &skyboxVertices, GL_STATIC_DRAW);
 	glEnableVertexAttribArray(0);
 	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(float), static_cast<void*>(nullptr));
+	
+	// load textures
+	// -------------
+	fs::path localPath = fs::current_path();
+	std::string textureFolder = localPath.string() + "/Resources/Textures";
 
+	Model driverWagon(localPath.string() + "/Resources/train/train-new.obj");
+	Model terrain(localPath.string() + "/Resources/terrain/terrain.obj");
 
+	Model bucuresti(localPath.string() + "/Resources/station/bucurestiMap/bucuresti.obj");
+	Model ploiesti(localPath.string() + "/Resources/station/ploiestiMap/ploiesti.obj");
+	Model bucegi(localPath.string() + "/Resources/bucegi/bucegi.obj");
+	Model brasov(localPath.string() + "/Resources/station/brasovMap/brasov.obj");
+
+	// configure depth map FBO
+	// -----------------------
+	constexpr constexpr unsigned int SHADOW_WIDTH = 2048, SHADOW_HEIGHT = 2048;
+	unsigned int depthMapFBO;
+	glGenFramebuffers(1, &depthMapFBO);
 
 	return 0;
 }
