@@ -376,6 +376,12 @@ int main()
 		glfwPollEvents();
 	}
 
+	// de-allocate all resources once they've outlived their purpose:
+	// ------------------------------------------------------------------------
+	glDeleteVertexArrays(1, &skyboxVAO);
+	glDeleteBuffers(1, &skyboxVBO);
+
+	glfwTerminate();
 	return 0;
 }
 
