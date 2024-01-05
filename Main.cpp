@@ -219,6 +219,36 @@ int main()
 	glReadBuffer(GL_NONE);
 	glBindFramebuffer(GL_FRAMEBUFFER, 0);
 
+	// shader configuration
+	// --------------------
+	shadowShader.use();
+	shadowShader.setInt("diffuseTexture", 0);
+	shadowShader.setInt("shadowMap", 1);
+
+	std::vector<std::string> faces
+	{
+		textureFolder + "/right.jpg",
+		textureFolder + "/left.jpg",
+		textureFolder + "/top.jpg",
+		textureFolder + "/bottom.jpg",
+		textureFolder + "/front.jpg",
+		textureFolder + "/back.jpg"
+	};
+
+	std::vector<std::string> faces2
+	{
+		textureFolder + "/right2.jpg",
+		textureFolder + "/left2.jpg",
+		textureFolder + "/top2.jpg",
+		textureFolder + "/bottom2.jpg",
+		textureFolder + "/front2.jpg",
+		textureFolder + "/back2.jpg"
+	};
+	unsigned int cubemapTexture = loadCubemap(faces);
+
+	skyboxShader.use();
+	skyboxShader.setInt("skybox", 0);
+
 	return 0;
 }
 
