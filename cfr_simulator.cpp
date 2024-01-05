@@ -411,6 +411,40 @@ int main()
 		brasovShader.setMat4("model", _brasov);
 		brasov.Draw(brasovShader);
 
+		if (glfwGetKey(window, GLFW_KEY_1) == GLFW_PRESS) // driver camera
+		{
+			cameraType = CameraType::Driver;
+		}
+		if (glfwGetKey(window, GLFW_KEY_2) == GLFW_PRESS) // 3rd person camera
+		{
+			cameraType = CameraType::ThirdPerson;
+		}
+		if (glfwGetKey(window, GLFW_KEY_3) == GLFW_PRESS) // free camera
+		{
+			cameraType = CameraType::Free;
+		}
+		if (glfwGetKey(window, GLFW_KEY_4) == GLFW_PRESS) // day
+		{
+			cubemapTexture = loadCubemap(faces);
+		}
+		if (glfwGetKey(window, GLFW_KEY_5) == GLFW_PRESS) // night
+		{
+			cubemapTexture = loadCubemap(faces2);
+		}
+		if (glfwGetKey(window, GLFW_KEY_BACKSLASH) == GLFW_PRESS) // move train back
+		{
+			train = glm::translate(moveTrainBack(startX, startY, startZ, rotY, rotZ));
+		}
+		if (glfwGetKey(window, GLFW_KEY_ENTER) == GLFW_PRESS) // start train
+		{
+			start = true;
+		}
+		if (glfwGetKey(window, GLFW_KEY_BACKSPACE) == GLFW_PRESS) // stop train
+		{
+			start = false;
+		}
+
+
 
 		// draw skybox as last
 		glDepthFunc(GL_LEQUAL);
