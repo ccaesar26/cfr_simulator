@@ -152,6 +152,24 @@ int main()
 
 	glm::vec3 lightPos(-10.f, 25.f, 10.0f);
 
+	// build and compile shaders
+	// -------------------------
+	Shader skyboxShader("skybox.vs", "skybox.fs");
+
+	Shader trainShader("model.vs", "model.fs");
+	Shader terrainShader("model.vs", "model.fs");
+
+	Shader bucurestiMapShader("model.vs", "model.fs");
+	Shader ploiestiMapShader("model.vs", "model.fs");
+	Shader bucegiShader("model.vs", "model.fs");
+	Shader brasovShader("model.vs", "model.fs");
+
+	Shader lightingShader("PhongLight.vs", "PhongLight.fs");
+	Shader lightCubeShader("Lamp.vs", "Lamp.fs");
+
+	Shader shadowShader("ShadowMapping.vs", "ShadowMapping.fs");
+	Shader simpleDepthShader("ShadowMappingDepth.vs", "ShadowMappingDepth.fs");
+
 
 	return 0;
 }
